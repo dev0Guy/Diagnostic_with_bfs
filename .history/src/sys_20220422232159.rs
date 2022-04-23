@@ -1,8 +1,0 @@
-struct System{
-
-}
-
-
-impl System{
-    
-}

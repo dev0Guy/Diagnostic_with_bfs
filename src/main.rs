@@ -2,7 +2,7 @@ mod obs;
 mod sys;
 mod gates;
 mod algo;
-use std::time::Instant;
+use std::time::{Instant,Duration};
 use obs::{OBS};
 use sys::{System};
 use std::{env};
@@ -23,13 +23,12 @@ fn main() {
     // let mut obs_minimal: Vec<(usize,usize,usize,usize)> = Vec::new();
     for (idx,obs) in obs_list.iter().enumerate() {
         let now = Instant::now();
-        let info =algo::bfs(&sys,&obs);
+        let stop_time: usize = Duration::new(120, 0).as_micros() as usize;
+        let (elapsed,info) =algo::bfs(&sys,&obs,now,stop_time);
         let diagnostic = info.len();
-        let minimal_set = info.iter().min().unwrap().len()/2;
-        let elapsed: usize = now.elapsed().as_micros() as usize;
+        let minimal_set = info.iter().map(|set| set.len()).min().unwrap();
         let t = (idx+1,diagnostic,minimal_set,elapsed);
         println!("{:?}",t);
-        break;
     }
     // println!("{:?}", obs_minimal.len());
 }

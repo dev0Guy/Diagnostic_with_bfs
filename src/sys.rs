@@ -36,7 +36,7 @@ impl System{
             }).collect();
             let index: usize =  info.2[1..info.2.len()].parse::<usize>().unwrap()-1;
             let mut activate_out: bool =  activate_gate(&info.0,&gate_input);
-            if change[idx]{activate_out = ! activate_out;}
+            if change[idx]{activate_out = !activate_out;}
             if info.2.contains("o"){
                 out[index] = activate_out;
             }else{
